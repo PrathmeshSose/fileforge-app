@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FileForge – All-in-One File Converter for Android</title>
+<meta name="description" content="FileForge is a free offline Android app to merge, split, compress, encrypt PDFs, convert images, scan with OCR and more. Your files never leave your device."/>
+<meta property="og:title" content="FileForge – All-in-One File Converter"/>
+<meta property="og:description" content="100% offline PDF & file converter for Android. No cloud. No tracking."/>
+<meta property="og:type" content="website"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --accent:#4ECDC4;--accent2:#A29BFE;--accent3:#FF6B6B;
+  --bg:#0A0A0A;--bg2:#111;--card:#161616;--border:#222;
+  --text:#F0F0F0;--muted:#777;--muted2:#444;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#111}
+::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:68px;
+  background:rgba(10,10,10,0.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  transition:all .3s;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-icon{
+  width:38px;height:38px;border-radius:11px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;box-shadow:0 4px 16px rgba(78,205,196,0.3);
+}
+.nav-logo-text{font-size:17px;font-weight:800;color:#fff}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:600;transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#000!important;padding:9px 20px;border-radius:10px;
+  font-weight:700!important;font-size:13px!important;
+  box-shadow:0 4px 20px rgba(78,205,196,0.25);
+  transition:transform .2s,box-shadow .2s!important;
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(78,205,196,0.4)!important;color:#000!important}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:100px 24px 80px;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%,rgba(78,205,196,0.15) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 40% at 80% 80%,rgba(162,155,254,0.08) 0%,transparent 60%);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(78,205,196,0.1);border:1px solid rgba(78,205,196,0.3);
+  border-radius:999px;padding:7px 18px;margin-bottom:32px;
+  font-size:12px;font-weight:700;color:var(--accent);
+  letter-spacing:1.5px;text-transform:uppercase;
+  animation:fadeDown .6s ease both;
+}
+.hero h1{
+  font-size:clamp(40px,7vw,80px);font-weight:900;line-height:1.08;
+  letter-spacing:-2px;margin-bottom:24px;
+  background:linear-gradient(160deg,#fff 0%,#fff 50%,var(--accent) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:fadeUp .7s .1s ease both;
+}
+.hero-sub{
+  font-size:clamp(16px,2.2vw,20px);color:var(--muted);
+  max-width:600px;line-height:1.75;margin-bottom:44px;
+  animation:fadeUp .7s .2s ease both;
+}
+.hero-sub strong{color:var(--accent);font-weight:700}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:fadeUp .7s .3s ease both}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#000;font-weight:800;font-size:15px;
+  padding:15px 32px;border-radius:14px;text-decoration:none;
+  box-shadow:0 8px 32px rgba(78,205,196,0.3);
+  transition:transform .2s,box-shadow .2s;
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 44px rgba(78,205,196,0.45)}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--border);color:var(--text);
+  font-weight:700;font-size:15px;padding:15px 32px;
+  border-radius:14px;text-decoration:none;
+  background:rgba(255,255,255,0.03);
+  transition:border-color .2s,background .2s;
+}
+.btn-secondary:hover{border-color:var(--accent);background:rgba(78,205,196,0.05)}
+.hero-stats{
+  display:flex;gap:48px;margin-top:64px;flex-wrap:wrap;justify-content:center;
+  animation:fadeUp .7s .4s ease both;
+}
+.stat{text-align:center}
+.stat-val{font-size:32px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{font-size:13px;color:var(--muted);margin-top:2px;font-weight:500}
+
+/* ── SECTION COMMON ── */
+section{padding:90px 24px}
+.container{max-width:1100px;margin:0 auto}
+.section-tag{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;text-align:center;margin-bottom:12px}
+h2{font-size:clamp(28px,4vw,46px);font-weight:900;letter-spacing:-1px;text-align:center;margin-bottom:16px}
+.section-sub{font-size:16px;color:var(--muted);text-align:center;max-width:560px;margin:0 auto 56px;line-height:1.7}
+
+/* ── FEATURES ── */
+.features-bg{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.feat-card{
+  background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;
+  transition:border-color .25s,transform .25s,box-shadow .25s;cursor:default;
+}
+.feat-card:hover{border-color:var(--accent);transform:translateY(-5px);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.feat-icon{
+  width:54px;height:54px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;margin-bottom:18px;
+}
+.feat-card h3{font-size:16px;font-weight:800;margin-bottom:8px}
+.feat-card p{font-size:14px;color:var(--muted);line-height:1.65}
+
+/* ── HOW IT WORKS ── */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:56px}
+.step{text-align:center;padding:0 16px}
+.step-num{
+  width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(78,205,196,0.15),rgba(162,155,254,0.15));
+  border:1px solid rgba(78,205,196,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:900;color:var(--accent);
+  margin:0 auto 18px;
+}
+.step h3{font-size:16px;font-weight:800;margin-bottom:8px}
+.step p{font-size:14px;color:var(--muted);line-height:1.65}
+.step-arrow{display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--muted2);padding-top:28px}
+
+/* ── PRIVACY ── */
+.privacy-section{
+  background:linear-gradient(135deg,rgba(78,205,196,0.06),rgba(162,155,254,0.06));
+  border-top:1px solid rgba(78,205,196,0.12);border-bottom:1px solid rgba(78,205,196,0.12);
+}
+.privacy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:48px}
+.priv-item{
+  display:flex;gap:16px;align-items:flex-start;
+  background:rgba(255,255,255,0.03);border:1px solid var(--border);
+  border-radius:16px;padding:22px;
+}
+.priv-icon{font-size:22px;flex-shrink:0;margin-top:2px}
+.priv-item h4{font-size:15px;font-weight:700;margin-bottom:6px}
+.priv-item p{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* ── DEVELOPER ── */
+.developer-card{
+  max-width:700px;margin:0 auto;
+  background:var(--card);border:1px solid var(--border);border-radius:24px;padding:48px;text-align:center;
+}
+.dev-avatar{
+  width:80px;height:80px;border-radius:24px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;margin:0 auto 20px;
+  box-shadow:0 8px 32px rgba(78,205,196,0.25);
+}
+.developer-card h3{font-size:22px;font-weight:900;margin-bottom:6px}
+.developer-card .dev-sub{font-size:14px;color:var(--muted);margin-bottom:24px}
+.dev-info{display:flex;flex-direction:column;gap:12px;align-items:center;text-align:left}
+.dev-row{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.dev-row strong{color:var(--text)}
+.dev-row a{color:var(--accent);text-decoration:none}
+.dev-row a:hover{text-decoration:underline}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--border);
+  padding:48px;
+  display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start;
+}
+.foot-brand .nav-logo{margin-bottom:12px}
+.foot-brand p{font-size:13px;color:var(--muted);max-width:300px;line-height:1.6}
+.foot-links{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.foot-links a{font-size:14px;color:var(--muted);text-decoration:none;font-weight:500;transition:color .2s}
+.foot-links a:hover{color:var(--accent)}
+.foot-bottom{
+  border-top:1px solid var(--border);
+  padding:20px 48px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+}
+.foot-bottom p{font-size:12px;color:var(--muted2)}
+.foot-bottom a{color:var(--muted);text-decoration:none;font-size:12px}
+.foot-bottom a:hover{color:var(--accent)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── HAMBURGER MENU ── */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;cursor:pointer;
+  background:none;border:none;padding:8px;
+}
+.hamburger span{
+  display:block;width:24px;height:2px;
+  background:#fff;border-radius:2px;
+  transition:transform .3s,opacity .3s;
+}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.mobile-menu{
+  display:none;position:fixed;top:68px;left:0;right:0;z-index:998;
+  background:rgba(10,10,10,0.98);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  flex-direction:column;padding:16px 24px 24px;
+  gap:4px;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  color:var(--text);text-decoration:none;font-size:16px;
+  font-weight:600;padding:14px 0;
+  border-bottom:1px solid var(--border);
+  transition:color .2s;
+}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--accent)}
+.mobile-menu .mob-cta{
+  margin-top:12px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#000!important;text-align:center;
+  padding:14px!important;border-radius:12px;
+  border-bottom:none!important;
+}
+
+/* ── TABLET ── */
+@media(max-width:900px){
+  .hero h1{letter-spacing:-1px}
+  .hero-stats{gap:24px}
+  .stat-val{font-size:26px}
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .privacy-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  /* Nav */
+  nav{padding:0 20px;height:60px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .mobile-menu{top:60px}
+
+  /* Hero */
+  .hero{padding:80px 20px 60px}
+  .hero-badge{font-size:11px;padding:6px 14px;margin-bottom:24px}
+  .hero-sub{font-size:15px;margin-bottom:32px}
+  .hero-btns{flex-direction:column;align-items:center;gap:12px;width:100%}
+  .btn-primary,.btn-secondary{width:100%;max-width:320px;justify-content:center;padding:16px 24px}
+  .hero-stats{gap:20px;margin-top:44px}
+  .stat-val{font-size:24px}
+  .stat-label{font-size:12px}
+
+  /* Sections */
+  section{padding:60px 20px}
+  h2{font-size:26px;letter-spacing:-0.5px}
+  .section-sub{font-size:14px;margin-bottom:36px}
+
+  /* Features */
+  .features-grid{grid-template-columns:1fr;gap:12px}
+  .feat-card{padding:22px}
+  .feat-icon{width:48px;height:48px;border-radius:14px;font-size:22px;margin-bottom:14px}
+
+  /* Steps */
+  .steps{grid-template-columns:1fr;gap:28px}
+  .step{padding:0 8px}
+
+  /* Privacy */
+  .privacy-grid{grid-template-columns:1fr;gap:12px;margin-top:32px}
+  .priv-item{padding:18px}
+
+  /* Developer */
+  .developer-card{padding:28px 20px;border-radius:18px}
+  .dev-avatar{width:64px;height:64px;font-size:28px;border-radius:18px}
+  .developer-card h3{font-size:18px}
+  .dev-info{align-items:flex-start}
+  .dev-row{font-size:13px;flex-wrap:wrap}
+
+  /* Footer */
+  footer{grid-template-columns:1fr;padding:32px 20px;gap:28px}
+  .foot-links{align-items:flex-start;flex-direction:row;flex-wrap:wrap;gap:14px}
+  .foot-links a{font-size:13px}
+  .foot-bottom{padding:16px 20px;flex-direction:column;text-align:center;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon">📄</div>
+    <span class="nav-logo-text">FileForge</span>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">How It Works</a>
+    <a href="#privacy">Privacy</a>
+    <a href="#developer">Contact</a>
+    <a href="privacy.html" class="nav-cta">Privacy Policy</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#features" onclick="closeMob()">Features</a>
+  <a href="#how" onclick="closeMob()">How It Works</a>
+  <a href="#privacy" onclick="closeMob()">Privacy</a>
+  <a href="#developer" onclick="closeMob()">Contact</a>
+  <a href="privacy.html" class="mob-cta">Privacy Policy</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🚀 Now Available on Indus App Store</div>
+  <h1>All-in-One File<br/>Converter App</h1>
+  <p class="hero-sub">
+    Merge, split, compress, encrypt PDFs. Convert images. Scan with OCR.
+    Everything works <strong>100% offline</strong> — your files never leave your device.
+  </p>
+  <div class="hero-btns">
+    <a href="https://store.indusappstore.com" class="btn-primary" id="download-btn">⬇ Download Free</a>
+    <a href="#features" class="btn-secondary">Explore Features →</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-val">15+</div><div class="stat-label">Powerful Tools</div></div>
+    <div class="stat"><div class="stat-val">100%</div><div class="stat-label">Offline & Private</div></div>
+    <div class="stat"><div class="stat-val">0</div><div class="stat-label">Files Uploaded</div></div>
+    <div class="stat"><div class="stat-val">Free</div><div class="stat-label">To Download</div></div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features-bg" id="features">
+  <div class="container">
+    <p class="section-tag">What FileForge Can Do</p>
+    <h2>Every File Tool You Need</h2>
+    <p class="section-sub">A complete toolkit for documents and images — no internet connection required.</p>
+    <div class="features-grid reveal">
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(78,205,196,0.12)">📑</div>
+        <h3>PDF Merge & Split</h3>
+        <p>Combine multiple PDFs into one file, or split a large PDF into individual pages in seconds.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(255,107,107,0.12)">🗜️</div>
+        <h3>PDF Compression</h3>
+        <p>Reduce file sizes dramatically without losing quality. Share smaller files faster.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(255,217,61,0.12)">🖼️</div>
+        <h3>Image to PDF</h3>
+        <p>Convert JPG, PNG, and WebP images to PDF. Supports batch conversion of multiple images.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(162,155,254,0.12)">🔒</div>
+        <h3>PDF Encryption</h3>
+        <p>Password-protect sensitive PDFs with AES-256 encryption entirely on your device.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(0,206,201,0.12)">🔍</div>
+        <h3>OCR Scanner</h3>
+        <p>Extract text from images and scanned documents using Google ML Kit — works fully offline.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(253,203,110,0.12)">🗄️</div>
+        <h3>Ghost Vault</h3>
+        <p>Store private files in an encrypted vault protected by a PIN. Only you can access them.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(255,190,118,0.12)">💧</div>
+        <h3>Watermark</h3>
+        <p>Add custom text or image watermarks to your PDFs to protect and brand your documents.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(116,185,255,0.12)">📂</div>
+        <h3>File Organizer</h3>
+        <p>Manage, rename, move and organize your converted files all in one place.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(232,67,147,0.12)">📤</div>
+        <h3>Easy Sharing</h3>
+        <p>Share output files instantly via WhatsApp, email, Drive, or any app with one tap.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <p class="section-tag">Simple Process</p>
+    <h2>How It Works</h2>
+    <p class="section-sub">Convert any file in three simple steps. No sign-up required.</p>
+    <div class="steps reveal">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Pick a Tool</h3>
+        <p>Select the tool you need — PDF merge, image convert, OCR, encryption and more.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Select Files</h3>
+        <p>Choose files from your device storage or camera. Everything stays local.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Done in Seconds</h3>
+        <p>Your file is processed instantly on-device and saved to your Downloads folder.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section class="privacy-section" id="privacy">
+  <div class="container">
+    <p class="section-tag">Your Privacy</p>
+    <h2>Built Privacy-First</h2>
+    <p class="section-sub">FileForge is designed from the ground up to respect your privacy. No hidden data collection, ever.</p>
+    <div class="privacy-grid reveal">
+      <div class="priv-item">
+        <span class="priv-icon">📵</span>
+        <div>
+          <h4>100% Offline Processing</h4>
+          <p>All file operations happen on your device. Your files are never uploaded to any server.</p>
+        </div>
+      </div>
+      <div class="priv-item">
+        <span class="priv-icon">🚫</span>
+        <div>
+          <h4>Zero Data Selling</h4>
+          <p>We do not sell, rent, or share your personal data with any third party. Period.</p>
+        </div>
+      </div>
+      <div class="priv-item">
+        <span class="priv-icon">🗑️</span>
+        <div>
+          <h4>Temp Files Deleted</h4>
+          <p>Any temporary files created during processing are deleted immediately after completion.</p>
+        </div>
+      </div>
+      <div class="priv-item">
+        <span class="priv-icon">🔐</span>
+        <div>
+          <h4>AES-256 Vault Encryption</h4>
+          <p>The Ghost Vault encrypts files with AES-256 stored in your device's private sandbox only.</p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="privacy.html" class="btn-secondary" style="display:inline-flex">Read Full Privacy Policy →</a>
+    </div>
+  </div>
+</section>
+
+<!-- DEVELOPER -->
+<section id="developer">
+  <div class="container">
+    <p class="section-tag">Developer</p>
+    <h2>About the Developer</h2>
+    <p class="section-sub">Built with passion for productivity and privacy.</p>
+    <div class="developer-card reveal">
+      <div class="dev-avatar">⚙️</div>
+      <h3>Prathmesh Sose</h3>
+      <p class="dev-sub">Mobile App Developer · Nicsicon Technologies</p>
+      <div class="dev-info">
+        <div class="dev-row">📧 <span>Email: <a href="mailto:nicsicon.technologies@gmail.com">nicsicon.technologies@gmail.com</a></span></div>
+        <div class="dev-row">📍 <span><strong>Address:</strong> SP Infosity, Hadapsar, Pune, Maharashtra, India</span></div>
+        <div class="dev-row">📱 <span><strong>App:</strong> FileForge – All Doc Converter</span></div>
+        <div class="dev-row">📦 <span><strong>Package:</strong> com.fileforge.app</span></div>
+        <div class="dev-row">🏪 <span><strong>Store:</strong> Indus App Store</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-brand">
+    <a class="nav-logo" href="#" style="margin-bottom:12px;display:inline-flex">
+      <div class="nav-logo-icon">📄</div>
+      <span class="nav-logo-text">FileForge</span>
+    </a>
+    <p>A free, offline-first all-in-one file converter for Android. Your files, your device, your privacy.</p>
+  </div>
+  <div class="foot-links">
+    <a href="#features">Features</a>
+    <a href="#how">How It Works</a>
+    <a href="#privacy">Privacy</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="mailto:nicsicon.technologies@gmail.com">Contact Us</a>
+  </div>
+</footer>
+<div class="foot-bottom">
+  <p>© 2026 FileForge – All Doc Converter · Nicsicon Technologies · India</p>
+  <a href="privacy.html">Privacy Policy</a>
+</div>
+
+<script>
+// Scroll reveal
+const reveals=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}});
+},{threshold:0.12});
+reveals.forEach(r=>io.observe(r));
+
+// Nav scroll effect
+window.addEventListener('scroll',()=>{
+  document.querySelector('nav').style.boxShadow=
+    window.scrollY>40?'0 4px 40px rgba(0,0,0,0.5)':'none';
+});
+
+// Hamburger menu
+const ham=document.getElementById('hamburger');
+const mob=document.getElementById('mobileMenu');
+ham.addEventListener('click',()=>{
+  ham.classList.toggle('open');
+  mob.classList.toggle('open');
+  document.body.style.overflow=mob.classList.contains('open')?'hidden':'';
+});
+function closeMob(){
+  ham.classList.remove('open');
+  mob.classList.remove('open');
+  document.body.style.overflow='';
+}
+// Close menu on outside click
+document.addEventListener('click',e=>{
+  if(mob.classList.contains('open')&&!mob.contains(e.target)&&!ham.contains(e.target)){
+    closeMob();
+  }
+});
+</script>
+</body>
+</html>
