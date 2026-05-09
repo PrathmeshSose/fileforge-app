@@ -6,19 +6,27 @@
 <title>Privacy Policy – FileForge All Doc Converter</title>
 <meta name="description" content="Privacy Policy for FileForge by Prathmesh Sose, Nicsicon Technologies, Pune, India."/>
 <link rel="icon" href="icon.png" type="image/png"/>
+<script>try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0E0E11;--surface:#161619;--border:#232329;--blue:#4361EE;--orange:#FF6B35;--text:#F0EEE9;--muted:#72717A;--light:#1F1F24}
+:root{--bg:#0E0E11;--surface:#161619;--border:#232329;--blue:#4361EE;--orange:#FF6B35;--text:#F0EEE9;--muted:#72717A;--light:#1F1F24;--nav-bg:rgba(14,14,17,0.94)}
+[data-theme="light"]{--bg:#F5F4F1;--surface:#FFFFFF;--border:#D8D6D0;--blue:#3451D1;--orange:#E85D25;--text:#111013;--muted:#5C5B63;--light:#ECEAE5;--nav-bg:rgba(245,244,241,0.94)}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;transition:background .25s,color .25s}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 img{display:block}a{color:inherit;text-decoration:none}
+.theme-toggle{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s;flex-shrink:0}
+.theme-toggle:hover{background:var(--light);border-color:var(--blue)}
+.theme-toggle svg{width:15px;height:15px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s}
+.theme-toggle:hover svg{stroke:var(--blue)}
+.icon-moon{display:block}.icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:none}[data-theme="light"] .icon-sun{display:block}
 
 nav{position:sticky;top:0;z-index:100;height:60px;display:flex;align-items:center;
   justify-content:space-between;padding:0 48px;
-  background:rgba(14,14,17,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+  background:var(--nav-bg);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);transition:background .25s}
 .logo{display:flex;align-items:center;gap:10px}
 .logo-img{width:32px;height:32px;border-radius:8px;overflow:hidden;flex-shrink:0}
 .logo-img img{width:100%;height:100%;object-fit:cover}
@@ -99,10 +107,16 @@ footer a:hover{opacity:.75}
 
 <nav>
   <a class="logo" href="index.html">
-    <div class="logo-img"><img src="icon.png" alt="FileForge"/></div>
+    <div class="logo-img"><img src="icon.png" alt="FileForge logo" loading="eager"/></div>
     <span class="logo-name">FileForge</span>
   </a>
-  <a class="back-link" href="index.html">&#8592; Back to Home</a>
+  <div style="display:flex;align-items:center;gap:12px">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    <a class="back-link" href="index.html">&#8592; Back to Home</a>
+  </div>
 </nav>
 
 <div class="hero">
@@ -291,6 +305,16 @@ footer a:hover{opacity:.75}
 </footer>
 
 <script>
+// Theme
+const root=document.documentElement;
+const saved=localStorage.getItem('theme')||'dark';
+if(saved==='light')root.setAttribute('data-theme','light');
+document.getElementById('themeToggle').addEventListener('click',()=>{
+  const isLight=root.getAttribute('data-theme')==='light';
+  root.setAttribute('data-theme',isLight?'dark':'light');
+  localStorage.setItem('theme',isLight?'dark':'light');
+});
+// Accordion
 function toggle(h){
   h.classList.toggle('open');
   h.nextElementSibling.classList.toggle('open');

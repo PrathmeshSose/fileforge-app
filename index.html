@@ -11,23 +11,47 @@
 <link rel="icon" href="icon.png" type="image/png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<!-- FIX 1: Theme init in head prevents flash of wrong theme -->
+<script>try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#0E0E11;--surface:#161619;--border:#232329;
   --blue:#4361EE;--orange:#FF6B35;--text:#F0EEE9;--muted:#72717A;--light:#1F1F24;
+  --nav-bg:rgba(14,14,17,0.92);--mob-bg:rgba(14,14,17,0.98);
+}
+[data-theme="light"]{
+  --bg:#F5F4F1;--surface:#FFFFFF;--border:#D8D6D0;
+  --blue:#3451D1;--orange:#E85D25;--text:#111013;--muted:#5C5B63;--light:#ECEAE5;
+  --nav-bg:rgba(245,244,241,0.92);--mob-bg:rgba(245,244,241,0.98);
 }
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;transition:background .25s,color .25s}
+
+/* THEME TOGGLE */
+.theme-toggle{
+  width:36px;height:36px;border-radius:8px;border:1px solid var(--border);
+  background:var(--surface);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;transition:background .2s,border-color .2s;
+  flex-shrink:0;
+}
+.theme-toggle:hover{background:var(--light);border-color:var(--blue)}
+.theme-toggle svg{width:16px;height:16px;stroke:var(--muted);fill:none;
+  stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s}
+.theme-toggle:hover svg{stroke:var(--blue)}
+.icon-moon{display:block}
+.icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:none}
+[data-theme="light"] .icon-sun{display:block}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 img{display:block}
 a{color:inherit;text-decoration:none}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 48px;background:rgba(14,14,17,0.92);backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border)}
+  padding:0 48px;background:var(--nav-bg);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);transition:background .25s}
 .logo{display:flex;align-items:center;gap:10px}
 .logo-img{width:34px;height:34px;border-radius:9px;overflow:hidden;flex-shrink:0}
 .logo-img img{width:100%;height:100%;object-fit:cover}
@@ -45,8 +69,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;
 .ham.open span:nth-child(2){opacity:0}
 .ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 .mob-nav{display:none;position:fixed;top:64px;left:0;right:0;z-index:99;
-  background:rgba(14,14,17,.98);border-bottom:1px solid var(--border);
-  flex-direction:column;padding:8px 0 20px}
+  background:var(--mob-bg);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  flex-direction:column;padding:8px 0 20px;transition:background .25s}
 .mob-nav.open{display:flex}
 .mob-nav a{font-size:15px;font-weight:600;color:var(--muted);padding:14px 24px;
   border-bottom:1px solid var(--border);transition:color .2s}
@@ -104,7 +129,7 @@ h2{font-size:clamp(26px,4vw,42px);font-weight:900;text-align:center;
 /* HOW IT WORKS */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:52px}
 .step{padding:28px;background:var(--surface);border:1px solid var(--border);border-radius:14px}
-.step-n{font-size:36px;font-weight:900;color:var(--border);margin-bottom:14px;
+.step-n{font-size:36px;font-weight:900;color:var(--muted);opacity:.35;margin-bottom:14px;
   line-height:1;letter-spacing:-2px}
 .step h3{font-size:15px;font-weight:800;margin-bottom:8px}
 .step p{font-size:13px;color:var(--muted);line-height:1.65}
@@ -188,7 +213,7 @@ footer{border-top:1px solid var(--border);padding:40px 48px;
 <!-- NAV -->
 <nav>
   <div class="logo">
-    <div class="logo-img"><img src="icon.png" alt="FileForge"/></div>
+    <div class="logo-img"><img src="icon.png" alt="FileForge logo" loading="eager"/></div>
     <span class="logo-name">FileForge</span>
   </div>
   <div class="nav-links">
@@ -197,6 +222,10 @@ footer{border-top:1px solid var(--border);padding:40px 48px;
     <a href="#privacy">Privacy</a>
     <a href="#developer">Contact</a>
     <a href="privacy.html" class="nav-btn">Privacy Policy</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
   </div>
   <button class="ham" id="ham" aria-label="Toggle menu">
     <span></span><span></span><span></span>
@@ -208,16 +237,25 @@ footer{border-top:1px solid var(--border);padding:40px 48px;
   <a href="#privacy" onclick="closeMenu()">Privacy</a>
   <a href="#developer" onclick="closeMenu()">Contact</a>
   <a href="privacy.html" class="mob-btn" onclick="closeMenu()">Privacy Policy</a>
+  <!-- FIX 4: Theme toggle in mobile menu -->
+  <div style="padding:14px 24px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+    <span style="font-size:14px;font-weight:600;color:var(--muted)">Switch Theme</span>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" style="position:relative">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+  </div>
 </div>
 
-<!-- HERO -->
-<div class="hero">
+<!-- FIX 7: Hero is semantic section -->
+<main>
+<section class="hero" aria-label="Hero">
   <div>
     <p class="hero-label">Available on Indus App Store</p>
     <h1>The file converter<br/>that <em>respects</em> you.</h1>
     <p class="hero-sub">Merge, split, compress, and encrypt PDFs. Convert images. Scan with OCR. Everything runs on your device — files never leave.</p>
     <div class="hero-actions">
-      <a href="https://store.indusappstore.com" class="btn-primary" id="download-btn">Download Free</a>
+      <a href="https://store.indusappstore.com/apps/fileforge" class="btn-primary" id="download-btn" rel="noopener noreferrer" target="_blank">Download Free</a>
       <a href="#features" class="btn-outline">Explore Features</a>
     </div>
     <div class="hero-strip">
@@ -227,9 +265,9 @@ footer{border-top:1px solid var(--border);padding:40px 48px;
       <div class="strip-item"><div class="strip-num">Free</div><div class="strip-desc">To Use</div></div>
     </div>
   </div>
-</div>
+  </section>
 
-<!-- FEATURES -->
+<!-- FIX 8: Features inside main -->
 <section class="feat-bg" id="features">
   <div class="wrap">
     <p class="sec-tag">Capabilities</p>
@@ -289,7 +327,7 @@ footer{border-top:1px solid var(--border);padding:40px 48px;
     <p class="sec-sub">A solo developer building useful tools for everyday people.</p>
     <div class="dev-card reveal">
       <div class="dev-top">
-        <div class="dev-logo"><img src="icon.png" alt="FileForge"/></div>
+        <div class="dev-logo"><img src="icon.png" alt="FileForge" loading="lazy"/></div>
         <div>
           <div class="dev-name">Prathmesh Sose</div>
           <div class="dev-role">Mobile App Developer &mdash; Nicsicon Technologies</div>
@@ -311,7 +349,7 @@ footer{border-top:1px solid var(--border);padding:40px 48px;
 <footer>
   <div class="foot-left">
     <div class="logo" style="margin-bottom:8px">
-      <div class="logo-img"><img src="icon.png" alt="FileForge"/></div>
+      <div class="logo-img"><img src="icon.png" alt="FileForge" loading="lazy"/></div>
       <span class="logo-name">FileForge</span>
     </div>
     <p>Free. Offline. Private. Built for Android.</p>
@@ -330,14 +368,35 @@ footer{border-top:1px solid var(--border);padding:40px 48px;
 </div>
 
 <script>
+// Theme
+const root=document.documentElement;
+const saved=localStorage.getItem('theme')||'dark';
+if(saved==='light')root.setAttribute('data-theme','light');
+function toggleTheme(){
+  const isLight=root.getAttribute('data-theme')==='light';
+  root.setAttribute('data-theme',isLight?'dark':'light');
+  localStorage.setItem('theme',isLight?'dark':'light');
+}
+document.getElementById('themeToggle').addEventListener('click',toggleTheme);
+
+// Hamburger
 const ham=document.getElementById('ham');
 const mob=document.getElementById('mobNav');
 ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open');document.body.style.overflow=mob.classList.contains('open')?'hidden':''});
 function closeMenu(){ham.classList.remove('open');mob.classList.remove('open');document.body.style.overflow=''}
 document.addEventListener('click',e=>{if(mob.classList.contains('open')&&!mob.contains(e.target)&&!ham.contains(e.target))closeMenu()});
+
+// Scroll reveal
 const io=new IntersectionObserver(els=>{els.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-window.addEventListener('scroll',()=>{document.querySelector('nav').style.boxShadow=scrollY>30?'0 2px 24px rgba(0,0,0,.4)':'none'});
+// FIX 3: Theme-aware nav shadow
+const navEl=document.querySelector('nav');
+window.addEventListener('scroll',()=>{
+  const isLight=root.getAttribute('data-theme')==='light';
+  navEl.style.boxShadow=scrollY>30
+    ?(isLight?'0 2px 16px rgba(0,0,0,.1)':'0 2px 24px rgba(0,0,0,.5)')
+    :'none';
+});
 </script>
 </body>
 </html>
