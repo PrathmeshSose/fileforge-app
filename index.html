@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <!-- FIX 1: Theme init in head prevents flash of wrong theme -->
-<script>try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
+<script>try{var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');else document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -370,8 +370,9 @@ footer{border-top:1px solid var(--border);padding:40px 48px;
 <script>
 // Theme
 const root=document.documentElement;
-const saved=localStorage.getItem('theme')||'dark';
-if(saved==='light')root.setAttribute('data-theme','light');
+const saved=localStorage.getItem('theme')||'light';
+if(saved==='dark')root.setAttribute('data-theme','dark');
+else root.setAttribute('data-theme','light');
 function toggleTheme(){
   const isLight=root.getAttribute('data-theme')==='light';
   root.setAttribute('data-theme',isLight?'dark':'light');

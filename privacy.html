@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Privacy Policy – FileForge All Doc Converter</title>
 <meta name="description" content="Privacy Policy for FileForge by Prathmesh Sose, Nicsicon Technologies, Pune, India."/>
 <link rel="icon" href="icon.png" type="image/png"/>
-<script>try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
+<script>try{var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');else document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
@@ -307,8 +307,9 @@ footer a:hover{opacity:.75}
 <script>
 // Theme
 const root=document.documentElement;
-const saved=localStorage.getItem('theme')||'dark';
-if(saved==='light')root.setAttribute('data-theme','light');
+const saved=localStorage.getItem('theme')||'light';
+if(saved==='dark')root.setAttribute('data-theme','dark');
+else root.setAttribute('data-theme','light');
 document.getElementById('themeToggle').addEventListener('click',()=>{
   const isLight=root.getAttribute('data-theme')==='light';
   root.setAttribute('data-theme',isLight?'dark':'light');
