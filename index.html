@@ -8,6 +8,8 @@
 <meta property="og:title" content="FileForge – All-in-One File Converter"/>
 <meta property="og:description" content="100% offline PDF & file converter for Android. No cloud. No tracking."/>
 <meta property="og:type" content="website"/>
+<link rel="icon" type="image/png" href="icon.png"/>
+<meta property="og:image" content="icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
@@ -37,10 +39,11 @@ nav{
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 .nav-logo-icon{
   width:38px;height:38px;border-radius:11px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;box-shadow:0 4px 16px rgba(78,205,196,0.3);
+  overflow:hidden;
+  box-shadow:0 4px 16px rgba(78,205,196,0.3);
+  flex-shrink:0;
 }
+.nav-logo-icon img{width:100%;height:100%;object-fit:cover;display:block}
 .nav-logo-text{font-size:17px;font-weight:800;color:#fff}
 .nav-links{display:flex;align-items:center;gap:32px}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:600;transition:color .2s}
@@ -177,11 +180,12 @@ h2{font-size:clamp(28px,4vw,46px);font-weight:900;letter-spacing:-1px;text-align
 }
 .dev-avatar{
   width:80px;height:80px;border-radius:24px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  display:flex;align-items:center;justify-content:center;
-  font-size:36px;margin:0 auto 20px;
+  overflow:hidden;
+  margin:0 auto 20px;
   box-shadow:0 8px 32px rgba(78,205,196,0.25);
+  border:2px solid rgba(78,205,196,0.3);
 }
+.dev-avatar img{width:100%;height:100%;object-fit:cover;display:block}
 .developer-card h3{font-size:22px;font-weight:900;margin-bottom:6px}
 .developer-card .dev-sub{font-size:14px;color:var(--muted);margin-bottom:24px}
 .dev-info{display:flex;flex-direction:column;gap:12px;align-items:center;text-align:left}
@@ -320,7 +324,7 @@ footer{
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="#">
-    <div class="nav-logo-icon">📄</div>
+    <div class="nav-logo-icon"><img src="icon.png" alt="FileForge Logo"/></div>
     <span class="nav-logo-text">FileForge</span>
   </a>
   <div class="nav-links">
@@ -339,7 +343,7 @@ footer{
   <a href="#how" onclick="closeMob()">How It Works</a>
   <a href="#privacy" onclick="closeMob()">Privacy</a>
   <a href="#developer" onclick="closeMob()">Contact</a>
-  <a href="privacy.html" class="mob-cta">Privacy Policy</a>
+  <a href="privacy.html" class="mob-cta">🔒 Privacy Policy</a>
 </div>
 
 <!-- HERO -->
@@ -493,7 +497,7 @@ footer{
     <h2>About the Developer</h2>
     <p class="section-sub">Built with passion for productivity and privacy.</p>
     <div class="developer-card reveal">
-      <div class="dev-avatar">⚙️</div>
+      <div class="dev-avatar"><img src="icon.png" alt="FileForge"/></div>
       <h3>Prathmesh Sose</h3>
       <p class="dev-sub">Mobile App Developer · Nicsicon Technologies</p>
       <div class="dev-info">
@@ -511,7 +515,7 @@ footer{
 <footer>
   <div class="foot-brand">
     <a class="nav-logo" href="#" style="margin-bottom:12px;display:inline-flex">
-      <div class="nav-logo-icon">📄</div>
+      <div class="nav-logo-icon"><img src="icon.png" alt="FileForge Logo"/></div>
       <span class="nav-logo-text">FileForge</span>
     </a>
     <p>A free, offline-first all-in-one file converter for Android. Your files, your device, your privacy.</p>

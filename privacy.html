@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Privacy Policy – FileForge All Doc Converter</title>
 <meta name="description" content="Privacy Policy for FileForge – All Doc Converter Android App by Prathmesh Sose, Nicsicon Technologies, Pune, India."/>
+<link rel="icon" type="image/png" href="icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
@@ -22,7 +23,11 @@ nav{
   border-bottom:1px solid rgba(255,255,255,0.05);
 }
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.nav-logo-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:18px}
+.nav-logo-icon{
+  width:36px;height:36px;border-radius:10px;
+  overflow:hidden;flex-shrink:0;
+}
+.nav-logo-icon img{width:100%;height:100%;object-fit:cover;display:block}
 .nav-logo-text{font-size:16px;font-weight:800;color:#fff}
 .nav-back{color:var(--muted);text-decoration:none;font-size:14px;font-weight:600;transition:color .2s}
 .nav-back:hover{color:var(--accent)}
@@ -102,7 +107,7 @@ footer a:hover{text-decoration:underline}
 
 <nav>
   <a class="nav-logo" href="index.html">
-    <div class="nav-logo-icon">📄</div>
+    <div class="nav-logo-icon"><img src="icon.png" alt="FileForge Logo"/></div>
     <span class="nav-logo-text">FileForge</span>
   </a>
   <a class="nav-back" href="index.html">← Back to Home</a>

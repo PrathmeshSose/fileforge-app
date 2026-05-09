@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://YOUR-USERNAME.github.io/fileforge-app/sitemap.xml
+Sitemap: https://prathmeshsose.github.io/fileforge-app/sitemap.xml
